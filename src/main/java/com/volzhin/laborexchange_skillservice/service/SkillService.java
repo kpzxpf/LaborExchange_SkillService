@@ -53,6 +53,7 @@ public class SkillService {
         return skillRepository.findAll();
     }
 
+
     @Transactional(readOnly = true)
     public List<String> findSkillNamesByIds(Set<Long> ids) {
         log.info("Fetching skills by ids: {}", ids);

@@ -6,14 +6,14 @@ spring:
     name: skill-service
 
   datasource:
-    url: jdbc:postgresql://localhost:5435/skilldb
+    url: jdbc:postgresql://localhost:5438/skilldb
     username: skilluser
     password: skillpass
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
