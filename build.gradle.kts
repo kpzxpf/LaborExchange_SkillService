@@ -43,7 +43,6 @@ dependencies {
     implementation("io.micrometer:micrometer-registry-prometheus")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testRuntimeOnly("com.h2database:h2")
 }
 
 tasks.withType<Test> {
