@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Set;
 
-@Tag(name = "Skills", description = "Skill dictionary management")
+@Tag(name = "Skills", description = "Skill dictionary CRUD and bulk name lookup")
 @RestController
 @RequestMapping("/api/skills")
 @RequiredArgsConstructor
@@ -30,6 +31,7 @@ public class SkillController {
     private final SkillService skillService;
     private final SkillMapper mapper;
 
+    @SecurityRequirement(name = "Bearer Authentication")
     @Operation(
             summary = "Create a skill",
             description = "Adds a new skill to the dictionary. If a skill with the same name already exists (case-insensitive), the existing skill is returned instead of creating a duplicate."
@@ -45,6 +47,7 @@ public class SkillController {
         return new ResponseEntity<>(mapper.toDto(saved), HttpStatus.CREATED);
     }
 
+    @SecurityRequirement(name = "Bearer Authentication")
     @Operation(summary = "Update a skill")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Updated skill",
@@ -97,6 +100,7 @@ public class SkillController {
         return ResponseEntity.ok(skillService.findSkillNamesByIds(ids));
     }
 
+    @SecurityRequirement(name = "Bearer Authentication")
     @Operation(summary = "Delete a skill")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Deleted"),
