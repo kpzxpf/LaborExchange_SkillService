@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Tag(name = "Skills", description = "Skill dictionary CRUD and bulk name lookup")
@@ -98,6 +99,18 @@ public class SkillController {
             @Parameter(description = "Set of skill IDs", required = true, example = "1,2,5")
             @RequestParam Set<Long> ids) {
         return ResponseEntity.ok(skillService.findSkillNamesByIds(ids));
+    }
+
+    @Operation(
+            summary = "Get skill ID→name map by IDs (bulk)",
+            description = "Returns a Map of skill ID to skill name for the given set of IDs. Used internally for efficient batch lookups."
+    )
+    @ApiResponse(responseCode = "200", description = "Map of skillId to skillName")
+    @GetMapping("/map/by-ids")
+    public ResponseEntity<Map<Long, String>> findSkillMapByIds(
+            @Parameter(description = "Set of skill IDs", required = true, example = "1,2,5")
+            @RequestParam Set<Long> ids) {
+        return ResponseEntity.ok(skillService.findSkillMapByIds(ids));
     }
 
     @SecurityRequirement(name = "Bearer Authentication")
