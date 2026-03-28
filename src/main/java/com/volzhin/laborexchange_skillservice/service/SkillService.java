@@ -70,7 +70,6 @@ public class SkillService {
         return skillRepository.findAll();
     }
 
-    @Cacheable(value = "skills:ids", key = "#ids")
     @Transactional(readOnly = true)
     public List<String> findSkillNamesByIds(Set<Long> ids) {
         return skillRepository.findAllByIdIn(ids)
